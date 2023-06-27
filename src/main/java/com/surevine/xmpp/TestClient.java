@@ -1,6 +1,6 @@
 package com.surevine.xmpp;
 
-import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.ConnectionConfiguration.SecurityMode;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
@@ -11,6 +11,15 @@ import java.time.Duration;
 import java.util.logging.LogManager;
 
 public class TestClient {
+
+    static final String USERNAME = "jane";
+    static final String PASSWORD = "secret";
+    static final String DOMAIN = "example.org";
+    static final String HOST = "127.0.0.1";
+    static final int PORT = 5222;
+    static final String SASL_MECHANISM = "PLAIN";
+    private static final SecurityMode SECURITY_MODE = SecurityMode.disabled;
+
 
     public static void main(String[] args) throws Exception {
 
@@ -24,23 +33,21 @@ public class TestClient {
         }
 
         XMPPTCPConnectionConfiguration config = XMPPTCPConnectionConfiguration.builder()
-                .setUsernameAndPassword("jane", "secret")
-                .setXmppDomain("example.org")
-//            .setResource("test")
-                .setHost("127.0.0.1")
-                .setPort(5222)
-                .addEnabledSaslMechanism("PLAIN")
-                .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)
+                .setUsernameAndPassword(USERNAME, PASSWORD)
+                .setXmppDomain(DOMAIN)
+                .setHost(HOST)
+                .setPort(PORT)
+                .addEnabledSaslMechanism(SASL_MECHANISM)
+                .setSecurityMode(SECURITY_MODE)
                 .build();
 
         XMPPTCPConnection connection = new XMPPTCPConnection(config);
-        connection.setUseStreamManagement(false); // To reduce output in the debug log.
+        connection.setUseStreamManagement(false); // To reduce the output in the debug log.
 
         connection.connect();
         connection.login();
 
-
-        Thread.sleep(Duration.ofMinutes(20).toMillis());
+        Thread.sleep(Duration.ofMinutes(20).toMillis()); // Open connection for 20 minutes.
 
         connection.disconnect();
     }
