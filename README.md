@@ -15,3 +15,4 @@ A Smack-based XMPP client to run ad-hoc XMPP tests against an XMPP server such a
   <body>Hi John!</body>
 </message>
 ```
+See the Smack documentation for more info: https://download.igniterealtime.org/smack/dailybuilds/documentation/
