@@ -19,6 +19,7 @@ public class TestClient {
     static final int PORT = 5222;
     static final String SASL_MECHANISM = "PLAIN";
     private static final SecurityMode SECURITY_MODE = SecurityMode.disabled;
+    private static final boolean COMPRESSION_ENABLED = true;
 
 
     public static void main(String[] args) throws Exception {
@@ -39,6 +40,7 @@ public class TestClient {
                 .setPort(PORT)
                 .addEnabledSaslMechanism(SASL_MECHANISM)
                 .setSecurityMode(SECURITY_MODE)
+                .setCompressionEnabled(COMPRESSION_ENABLED)
                 .build();
 
         XMPPTCPConnection connection = new XMPPTCPConnection(config);
